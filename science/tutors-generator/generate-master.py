@@ -543,7 +543,7 @@ class MasterCatalogueGenerator:
         print("\nGenerating all modules view...")
 
         # Create all-modules container directory
-        all_modules_dir = self.output_dir / "topic-01-all-modules"
+        all_modules_dir = self.output_dir / "topic-03-all-modules"
         all_modules_dir.mkdir(exist_ok=True)
 
         # Create all-modules topic.md with icon
@@ -626,7 +626,7 @@ class MasterCatalogueGenerator:
         print("\nGenerating programmes view...")
 
         # Create programmes container directory
-        programmes_container = self.output_dir / "topic-03-programmes"
+        programmes_container = self.output_dir / "topic-01-programmes"
         programmes_container.mkdir(exist_ok=True)
 
         # Create programmes topic.md with icon
@@ -753,10 +753,10 @@ class MasterCatalogueGenerator:
         print("\nCleaning output directory...")
         self.clean_output()
 
-        # Generate structures (clusters first to build path mapping, then others)
+        # Generate structures (clusters first to build path mapping, then programmes, then all-modules)
         self.generate_clusters()
-        self.generate_all_modules()
         self.generate_programmes()
+        self.generate_all_modules()
 
         print("\n" + "=" * 60)
         print("Generation complete!")
