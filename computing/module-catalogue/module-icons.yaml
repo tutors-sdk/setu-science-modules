@@ -1,0 +1,679 @@
+# Module Icons Mapping
+# Extracted from reference tutors course
+# Format: module_code: {type: icon-type, color: hex-color}
+
+A02024:
+  type: ri:translate
+  color: '725043'
+A03807:
+  type: fluent:wrench-screwdriver-24-regular
+  color: '1975BE'
+A03902:
+  type: vscode-icons:file-type-python-misc
+  color: '337636'
+A04604:
+  type: ph:cpu
+  color: 'FF5722'
+A04867:
+  type: tabler:license
+  color: '52BD56'
+A04921:
+  type: lucide:git-branch
+  color: '668593'
+A06609:
+  type: vscode-icons:file-type-python
+  color: '317234'
+A06793:
+  type: mingcute:photo-album-line
+  color: 'C8537B'
+A06797:
+  type: tabler:math
+  color: '007888'
+A06882:
+  type: iconoir:sound-high
+  color: 'BD342A'
+A07001:
+  type: ri:group-line
+  color: 'A27260'
+A07004:
+  type: lucide:activity
+  color: '6D8E9E'
+A07883:
+  type: carbon:process-automate
+  color: '016AA8'
+A09883:
+  type: tabler:sum
+  color: '00B0C6'
+A09941:
+  type: ri:earth-line
+  color: '563C33'
+A10641:
+  type: ri:briefcase-line
+  color: '5D4137'
+A10744:
+  type: mdi:human
+  color: '993414'
+A10745:
+  type: hugeicons:joystick-01
+  color: 'E01C5F'
+A10841:
+  type: tabler:chart-histogram
+  color: '00A8BD'
+A10865:
+  type: hugeicons:artificial-intelligence-02
+  color: 'BE1851'
+A10866:
+  type: hugeicons:game-controller-01
+  color: '8B123B'
+A10867:
+  type: hugeicons:code-01
+  color: 'FF2375'
+A10868:
+  type: hugeicons:cube-01
+  color: '9C1442'
+A10871:
+  type: hugeicons:paint-brush-01
+  color: 'CF1A58'
+A10872:
+  type: tabler:binary-tree
+  color: '00B8CF'
+A10873:
+  type: tabler:atom-2
+  color: '00BFD8'
+A10922:
+  type: ph:hard-drives
+  color: '006773'
+A10923:
+  type: vscode-icons:file-type-npm
+  color: '54C359'
+A11062:
+  type: ph:cloud-arrow-up
+  color: '00707E'
+A11064:
+  type: tabler:chart-bell-curve
+  color: '00CFEA'
+A11104:
+  type: fluent:vehicle-truck-24-regular
+  color: '176CAF'
+A11106:
+  type: material-symbols:monitoring
+  color: '9F27B4'
+A11117:
+  type: fluent:code-24-regular
+  color: '1B7ECD'
+A11142:
+  type: lucide:search
+  color: '3C4E56'
+A11144:
+  type: ph:network
+  color: '008292'
+A11149:
+  type: fluent:bot-24-regular
+  color: '1F91EB'
+A11158:
+  type: material-symbols:warehouse
+  color: '6C1B7A'
+A11302:
+  type: ph:terminal
+  color: '00C2DA'
+A11306:
+  type: fluent:iot-24-regular
+  color: '135A91'
+A11344:
+  type: fluent:clipboard-task-24-regular
+  color: '24A3FF'
+A11347:
+  type: lucide:folder
+  color: '4D6470'
+A11368:
+  type: fluent:developer-board-24-regular
+  color: '28B6FF'
+A11377:
+  type: solar:lock-password-bold
+  color: '0E4584'
+A11438:
+  type: lucide:map-pin
+  color: '3E515A'
+A11483:
+  type: hugeicons:layers-01
+  color: 'AD1649'
+A11563:
+  type: simple-icons:mqtt
+  color: '52BE57'
+A11565:
+  type: mingcute:dashboard-line
+  color: 'FF7BB5'
+A11583:
+  type: fluent:flash-24-regular
+  color: '2CC8FF'
+A11961:
+  type: simple-icons:raspberrypi
+  color: '50BA55'
+A11982:
+  type: ph:code
+  color: '993414'
+A12201:
+  type: solar:shield-keyhole-bold
+  color: '1876E2'
+A12561:
+  type: hugeicons:settings-01
+  color: 'F11F66'
+A12581:
+  type: hugeicons:calculator-01
+  color: 'FF216D'
+A12601:
+  type: hugeicons:pencil-01
+  color: 'FF257C'
+A13003:
+  type: ph:cloud-check
+  color: '008B9C'
+A13004:
+  type: tabler:database
+  color: '008899'
+A13084:
+  type: carbon:ibm-cloud-pak-business-automation
+  color: '014B78'
+A13203:
+  type: solar:shield-security-bold
+  color: '0C3C73'
+A13204:
+  type: iconoir:media-video-list
+  color: 'E94033'
+A13223:
+  type: carbon:transformation
+  color: '015486'
+A13224:
+  type: carbon:enterprise
+  color: '01507F'
+A13227:
+  type: iconoir:video-camera
+  color: 'D33A2E'
+A13228:
+  type: mingcute:light-line
+  color: 'E7618E'
+A13264:
+  type: mingcute:movie-line
+  color: 'D75A84'
+A13267:
+  type: lucide:presentation
+  color: '394B53'
+A13283:
+  type: tabler:percentage
+  color: '00C7E1'
+A13325:
+  type: lucide:compass
+  color: '6B8B9B'
+A13328:
+  type: tabler:chart-line
+  color: '2D6930'
+A13381:
+  type: mingcute:user-line
+  color: 'B84D71'
+A13384:
+  type: mingcute:video-camera-line
+  color: 'FF8FD2'
+A13390:
+  type: ph:router
+  color: '00CCE5'
+A13401:
+  type: solar:shield-check-bold
+  color: '0D417B'
+A13421:
+  type: ph:globe
+  color: '00B9D0'
+A13422:
+  type: vscode-icons:file-type-html
+  color: '2F6D32'
+A13425:
+  type: material-symbols:insights
+  color: '7A1E8A'
+A13426:
+  type: ph:server
+  color: '00B0C6'
+A13433:
+  type: simple-icons:haskell
+  color: '4EB553'
+A13443:
+  type: carbon:sys-provision
+  color: '014771'
+A13461:
+  type: mingcute:palette-line
+  color: 'F76798'
+A13481:
+  type: iconoir:learning
+  color: 'FE4538'
+A13482:
+  type: ph:cloud-lightning
+  color: '009EB1'
+A13484:
+  type: tabler:calculator
+  color: '00D7F3'
+A13488:
+  type: ph:desktop-tower
+  color: '0095A7'
+A13489:
+  type: simple-icons:leetcode
+  color: '439A46'
+A13490:
+  type: vscode-icons:file-type-cpp3
+  color: '4BAC4E'
+A13501:
+  type: tabler:math-function
+  color: '00707F'
+A13503:
+  type: material-symbols:database
+  color: '5D1769'
+A13504:
+  type: material-symbols:data-object
+  color: '641971'
+A13542:
+  type: solar:folder-bold
+  color: '135CAE'
+A13546:
+  type: iconoir:microphone
+  color: 'FF4B3D'
+A13547:
+  type: simple-icons:react
+  color: '49A84C'
+A13548:
+  type: vscode-icons:file-type-css
+  color: '99405E'
+A13551:
+  type: tabler:vector
+  color: '0098AB'
+A13552:
+  type: simple-icons:python
+  color: '2D6930'
+A13554:
+  type: tabler:graph
+  color: '008091'
+A13555:
+  type: tabler:chart-dots
+  color: '00A0B4'
+A13557:
+  type: simple-icons:jira
+  color: '56C75B'
+A13563:
+  type: simple-icons:uml
+  color: '58CC5D'
+A13564:
+  type: mingcute:box-3d-line
+  color: 'A84667'
+A13584:
+  type: material-symbols:admin-panel-settings
+  color: '822093'
+A13585:
+  type: fluent:settings-24-regular
+  color: '2ABFFF'
+A13602:
+  type: fluent:vehicle-car-24-regular
+  color: '1563A0'
+A13603:
+  type: iconoir:camera
+  color: 'FF5142'
+A13623:
+  type: solar:danger-bold
+  color: '104E95'
+A13641:
+  type: simple-icons:flask
+  color: '357B38'
+A13661:
+  type: material-symbols:content-paste-search
+  color: '731C82'
+A13662:
+  type: lucide:check-circle
+  color: '7091A2'
+A13663:
+  type: simple-icons:ios
+  color: '419644'
+A13664:
+  type: vscode-icons:file-type-js-official
+  color: '3B883E'
+A13665:
+  type: material-symbols:storage
+  color: 'B52DCC'
+A13725:
+  type: simple-icons:kubernetes
+  color: '47A34A'
+A13726:
+  type: simple-icons:p5dotjs
+  color: '377F3A'
+A13727:
+  type: simple-icons:fastapi
+  color: '3D8D40'
+A13728:
+  type: simple-icons:processing
+  color: '39843C'
+A13730:
+  type: lucide:book-open
+  color: '526B77'
+A13740:
+  type: solar:info-circle-bold
+  color: '1565C0'
+A13741:
+  type: lucide:file-check
+  color: '7295A5'
+A13744:
+  type: solar:incognito-bold
+  color: '1A7FF3'
+A13783:
+  type: tabler:math-symbols
+  color: '0090A2'
+A13801:
+  type: ph:wifi-high
+  color: '00D5EF'
+A13822:
+  type: fluent:diagram-24-regular
+  color: '229AFA'
+A13825:
+  type: ri:mind-map
+  color: '795548'
+A13841:
+  type: simple-icons:figma
+  color: '5AD05F'
+A13845:
+  type: mingcute:font-line
+  color: 'FF74AB'
+A13884:
+  type: iconoir:edit-pencil
+  color: 'FF5746'
+A13886:
+  type: simple-icons:spring
+  color: '5CD561'
+A13941:
+  type: mingcute:brush-line
+  color: 'FF6EA1'
+A13942:
+  type: iconoir:media-video
+  color: '922820'
+A13943:
+  type: lucide:settings
+  color: '7598A9'
+A13944:
+  type: mingcute:computer-line
+  color: 'FF82BE'
+A13947:
+  type: lucide:share-2
+  color: '779BAD'
+A13984:
+  type: tabler:geometry
+  color: '00DFFC'
+A13986:
+  type: ph:cloud
+  color: '007988'
+A14022:
+  type: solar:database-bold
+  color: '11539D'
+A14025:
+  type: carbon:web-services-definition
+  color: '0165A1'
+A14027:
+  type: solar:smartphone-bold
+  color: '1257A6'
+A14028:
+  type: material-symbols:perm-media
+  color: '89229B'
+A14029:
+  type: carbon:data-model
+  color: '01588C'
+A14030:
+  type: solar:key-bold
+  color: '166DD1'
+A14031:
+  type: lucide:star
+  color: '7A9EB0'
+A14032:
+  type: solar:eye-bold
+  color: '197BEA'
+A14034:
+  type: mingcute:layer-line
+  color: 'FF88C8'
+A14037:
+  type: solar:lock-keyhole-bold
+  color: '1772D9'
+A14039:
+  type: solar:magnifer-bug-bold
+  color: '0F4A8C'
+A14048:
+  type: lucide:brain
+  color: '688897'
+A14062:
+  type: carbon:development
+  color: '027FCA'
+A14067:
+  type: lucide:zap
+  color: '7CA2B4'
+A14082:
+  type: simple-icons:android
+  color: '5ED963'
+A14102:
+  type: carbon:flow-data
+  color: '0283D1'
+A14130:
+  type: carbon:continuous-integration
+  color: '01619A'
+A14134:
+  type: carbon:information
+  color: '0277BD'
+A14142:
+  type: vscode-icons:file-type-uml
+  color: '4CB151'
+A14161:
+  type: material-symbols:table
+  color: 'BD2FD5'
+A14165:
+  type: iconoir:film-slate
+  color: 'A82E25'
+A14167:
+  type: simple-icons:codepen
+  color: '60DE65'
+A14168:
+  type: simple-icons:flutter
+  color: '62E267'
+A14171:
+  type: solar:danger-triangle-bold
+  color: '1569C8'
+A14173:
+  type: vscode-icons:file-type-typescript-official
+  color: '64E769'
+A14175:
+  type: solar:shield-warning-bold
+  color: '1460B7'
+A14181:
+  type: carbon:data-structured
+  color: '0288D8'
+A14182:
+  type: fluent:chip-24-regular
+  color: '1D88DC'
+A14221:
+  type: carbon:model-builder
+  color: '028CDF'
+A14321:
+  type: tabler:building-factory-2
+  color: '39853C'
+A14322:
+  type: simple-icons:tensorflow
+  color: '459F48'
+A14381:
+  type: carbon:content-delivery-network
+  color: '0290E6'
+A14502:
+  type: material-symbols:bar-chart
+  color: 'C431DD'
+A14505:
+  type: carbon:document-tasks
+  color: '0295ED'
+A14666:
+  type: vscode-icons:file-type-node
+  color: '66EB6B'
+A14782:
+  type: hugeicons:smartphone-01
+  color: 'FF2783'
+A14786:
+  type: lucide:graduation-cap
+  color: '597482'
+A14821:
+  type: lucide:target
+  color: '617E8C'
+A14843:
+  type: lucide:message-circle
+  color: '435761'
+A14844:
+  type: carbon:plan
+  color: '015D93'
+A14866:
+  type: lucide:pen-tool
+  color: '638190'
+A14881:
+  type: lucide:trending-up
+  color: '57717E'
+A14882:
+  type: lucide:users
+  color: '5C7885'
+A14883:
+  type: lucide:file-text
+  color: '5E7B89'
+A14886:
+  type: carbon:application
+  color: '0172B6'
+A14887:
+  type: lucide:anchor
+  color: '7EA5B7'
+A14903:
+  type: lucide:lightbulb
+  color: '485E68'
+A14942:
+  type: carbon:flow
+  color: '016EAF'
+A14943:
+  type: simple-icons:pwa
+  color: '68F06D'
+A15028:
+  type: ri:community-line
+  color: '8D6354'
+A15081:
+  type: carbon:model
+  color: '027BC3'
+A15121:
+  type: tabler:rocket
+  color: '5ED963'
+A15241:
+  type: tabler:bulb
+  color: '45A149'
+A15303:
+  type: lucide:briefcase
+  color: '41545E'
+A16862:
+  type: ri:global-line
+  color: '4F372F'
+A16945:
+  type: ri:book-open-line
+  color: '6B4B3F'
+A17621:
+  type: ri:psychology-line
+  color: '48332B'
+A17645:
+  type: ri:discuss-line
+  color: '64463B'
+A17653:
+  type: ri:user-heart-line
+  color: '7F594C'
+A17663:
+  type: ri:chat-smile-3-line
+  color: '946858'
+A19801:
+  type: lucide:shield-check
+  color: '455B65'
+A19802:
+  type: lucide:clipboard
+  color: '4A616C'
+A19803:
+  type: lucide:award
+  color: '4F6873'
+A19804:
+  type: lucide:user-check
+  color: '546E7A'
+A22541:
+  type: mdi:run
+  color: 'CC451B'
+A22542:
+  type: mdi:heart-pulse
+  color: 'FF5722'
+A22543:
+  type: mdi:walk
+  color: 'FF6828'
+A24601:
+  type: ph:cell-tower
+  color: '00DEF9'
+A25443:
+  type: ri:question-answer-line
+  color: '865E50'
+A25449:
+  type: ri:empathize-line
+  color: '9B6D5C'
+A26541:
+  type: solar:safe-bold
+  color: '1B84FB'
+A26561:
+  type: ph:globe-hemisphere-west
+  color: '00E7FF'
+A29441:
+  type: material-symbols:dataset
+  color: 'A729BC'
+A29442:
+  type: ph:graph
+  color: '995B00'
+A29443:
+  type: material-symbols:schema
+  color: 'AE2BC4'
+A29462:
+  type: fluent:wireless-24-regular
+  color: '26ADFF'
+A30241:
+  type: lucide:bookmark
+  color: '81A8BB'
+A32741:
+  type: ph:cloud-fog
+  color: '00A7BB'
+A33601:
+  type: tabler:chart-area
+  color: '00E7FF'
+A33701:
+  type: tabler:brand-python
+  color: '00EFFF'
+A33861:
+  type: carbon:ibm-cloud-pak-applications
+  color: '0299F3'
+A34021:
+  type: carbon:cloud-services
+  color: '029DFA'
+A34041:
+  type: carbon:workflow
+  color: '02A2FF'
+A35241:
+  type: vscode-icons:file-type-git
+  color: '3F9142'
+A35482:
+  type: tabler:formula
+  color: '00F7FF'
+A35483:
+  type: tabler:square-root
+  color: '00FFFF'
+A35501:
+  type: lucide:eye
+  color: '83ABBF'
+A36101:
+  type: material-symbols:query-stats
+  color: 'CB32E5'
+A36141:
+  type: material-symbols:ssid-chart
+  color: 'D334EE'
+A36201:
+  type: solar:lock-unlocked-bold
+  color: '1C88FF'
+A37366:
+  type: material-symbols:analytics
+  color: '9024A3'
+A37367:
+  type: material-symbols:science
+  color: '9826AB'

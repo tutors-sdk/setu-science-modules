@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+#
+# Tutors Catalogue Generator Wrapper
+#
+# Usage:
+#   ./generate              - Generate to default location (tutors-catalogue/tutors)
+#   ./generate <output>     - Generate to custom output directory
+#
+
+set -e
+
+# Change to script directory
+cd "$(dirname "$0")"
+
+# Run the generator
+python3 tutors-generator/generate-catalogue.py "$@"

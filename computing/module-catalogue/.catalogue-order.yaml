@@ -1,0 +1,34 @@
+# Master ordering for catalogue generation
+# This file defines the display order for programmes and clusters
+
+programmes:
+  - WD_KINFT_D
+  - WD_KINTE_B
+  - WD_KCRCO_B
+  - WD_KCOMC_D
+  - WD_KDEVP_B
+  - WD_KCOFO_B
+  - WD_KCMSC_B
+  - WD_KBUSY_G
+  - WD_KCOSC_G
+  - WD_KDAAN_G
+  - WD_KCESS_R
+  - WD_KISYP_R
+
+clusters:
+  - "Automotive, Automation and IoT"
+  - "Business"
+  - "Database and Analytics"
+  - "Electronics"
+  - "Engineering"
+  - "Forensics and Security"
+  - "Game Development"
+  - "Graphic Design and Animation"
+  - "Humanities"
+  - "Information Systems and Modelling"
+  - "Mathematics and Physics"
+  - "Media Production"
+  - "Networks and Cloud"
+  - "Professional Skills"
+  - "Software and Web Development"
+  - "Sports Technology"
