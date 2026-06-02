@@ -1,0 +1,6 @@
+#!/bin/bash
+# SETU Science Module Catalogue - Master Generator
+# Generates tutors-modules-master from science/module-catalogue
+
+cd "$(dirname "$0")"
+python3 tutors-generator/generate-master.py "$@"
