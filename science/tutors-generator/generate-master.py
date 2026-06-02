@@ -11,6 +11,10 @@ import shutil
 from pathlib import Path
 from typing import Dict, List, Any
 import re
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 
 class MasterCatalogueGenerator:
@@ -18,9 +22,13 @@ class MasterCatalogueGenerator:
         self.source_dir = Path(source_dir)
         self.output_dir = Path(output_dir)
 
+        # Load Tutors course ID from environment
+        self.tutors_course_id = os.getenv('TUTORS_COURSE_ID', 'setu-science-modules')
+
         # Data stores
         self.descriptors = {}
         self.clusters = {}
+        self.module_to_cluster_path = {}  # Maps module code to cluster note path
 
         # Load icon mappings from computing if available
         self.module_icons = {}
@@ -42,7 +50,9 @@ class MasterCatalogueGenerator:
 
     def load_cluster_icons(self):
         """Load cluster icon mappings"""
-        cluster_icon_file = Path("cluster-icons.yaml")
+        # Look in tutors-generator directory (same as this script)
+        script_dir = Path(__file__).parent
+        cluster_icon_file = script_dir / "cluster-icons.yaml"
         if cluster_icon_file.exists():
             with open(cluster_icon_file) as f:
                 self.cluster_icons = yaml.safe_load(f) or {}
@@ -76,7 +86,7 @@ class MasterCatalogueGenerator:
         """Clean the output directory"""
         if self.output_dir.exists():
             # Keep these files
-            keep_files = ['properties.yaml', 'course.md', 'course.png']
+            keep_files = ['properties.yaml', 'course.md', 'course.png', 'topic.md']
 
             for item in self.output_dir.iterdir():
                 if item.name not in keep_files:
@@ -102,6 +112,13 @@ class MasterCatalogueGenerator:
             print("  Created course.md")
         else:
             print("  course.md already exists")
+
+        # Create root topic.md
+        root_topic = self.output_dir / "topic.md"
+        with open(root_topic, 'w') as f:
+            f.write("# SETU Science Modules\n\n")
+            f.write("Browse all modules alphabetically or by subject cluster.\n")
+        print("  Created topic.md")
 
         # Create properties.yaml
         props = self.output_dir / "properties.yaml"
@@ -392,12 +409,21 @@ class MasterCatalogueGenerator:
         return '\n'.join(md)
 
     def generate_clusters(self):
-        """Generate cluster-based folder structure"""
+        """Generate cluster-based folder structure inside topic-02-clusters"""
         print("\nGenerating cluster view...")
 
-        # Create root topic.md
-        with open(self.output_dir / "topic.md", 'w') as f:
-            f.write("# SETU Science Modules\n\n")
+        # Create clusters container directory
+        clusters_container = self.output_dir / "topic-02-clusters"
+        clusters_container.mkdir(exist_ok=True)
+
+        # Create clusters topic.md with icon
+        with open(clusters_container / "topic.md", 'w') as f:
+            f.write("---\n")
+            f.write("icon:\n")
+            f.write("  type: mdi:view-grid\n")
+            f.write("  color: 5E35B1\n")
+            f.write("---\n\n")
+            f.write("# All Modules by Cluster\n\n")
             f.write("Browse modules organized by subject cluster.\n")
 
         # Sort clusters alphabetically
@@ -405,7 +431,7 @@ class MasterCatalogueGenerator:
 
         for idx, (cluster_name, module_codes) in enumerate(sorted_clusters, 1):
             cluster_dir_name = self.sanitize_filename(cluster_name)
-            cluster_dir = self.output_dir / f"topic-{idx:02d}-{cluster_dir_name}"
+            cluster_dir = clusters_container / f"topic-{idx:02d}-{cluster_dir_name}"
             cluster_dir.mkdir(exist_ok=True)
 
             # Create cluster topic.md with icon
@@ -442,6 +468,10 @@ class MasterCatalogueGenerator:
                 note_dir = cluster_dir / note_dir_name
                 note_dir.mkdir(exist_ok=True)
 
+                # Store the path mapping for weburl generation
+                relative_path = f"/note/{self.tutors_course_id}/topic-02-clusters/topic-{idx:02d}-{cluster_dir_name}/{note_dir_name}"
+                self.module_to_cluster_path[module_code] = relative_path
+
                 # Create archives directory
                 archives_dir = note_dir / "archives"
                 archives_dir.mkdir(exist_ok=True)
@@ -467,6 +497,89 @@ class MasterCatalogueGenerator:
 
         print(f"Generated {len(sorted_clusters)} clusters with modules")
 
+    def generate_all_modules(self):
+        """Generate alphabetical all-modules view with web links to cluster notes"""
+        print("\nGenerating all modules view...")
+
+        # Create all-modules container directory
+        all_modules_dir = self.output_dir / "topic-01-all-modules"
+        all_modules_dir.mkdir(exist_ok=True)
+
+        # Create all-modules topic.md with icon
+        with open(all_modules_dir / "topic.md", 'w') as f:
+            f.write("---\n")
+            f.write("icon:\n")
+            f.write("  type: mdi:sort-alphabetical-ascending\n")
+            f.write("  color: 1976D2\n")
+            f.write("---\n\n")
+            f.write("# All Modules\n\n")
+            f.write("All modules listed alphabetically.\n")
+
+        # Collect all modules with their titles for sorting
+        all_modules = []
+        for module_code, descriptor in self.descriptors.items():
+            full_title = descriptor.get('full_title', module_code)
+            all_modules.append((module_code, full_title, descriptor))
+
+        # Sort alphabetically by title
+        all_modules.sort(key=lambda x: x[1])
+
+        # Generate web objects for each module
+        for idx, (module_code, full_title, descriptor) in enumerate(all_modules, 1):
+            module_name = self.sanitize_filename(full_title)
+            web_dir = all_modules_dir / f"web-{idx:03d}-web-{idx:03d}-{module_name}"
+            web_dir.mkdir(exist_ok=True)
+
+            # Get cluster name for icon
+            cluster_name = descriptor.get('cluster', 'Uncategorized')
+
+            # Get icon (using same priority as modules)
+            icon_info = self.module_icons.get(module_code)
+            if icon_info:
+                icon_type = icon_info.get('type', 'carbon:sys-provision')
+                icon_color = icon_info.get('color', '014771')
+            elif cluster_name in self.cluster_icons:
+                cluster_icon = self.cluster_icons[cluster_name]
+                icon_type = cluster_icon.get('type', 'carbon:sys-provision')
+                icon_color = cluster_icon.get('color', '014771')
+            else:
+                icon_type = 'carbon:sys-provision'
+                icon_color = '014771'
+
+            # Extract first sentence of aim
+            aim_text = descriptor.get('aim', '')
+            if aim_text:
+                match = re.search(r'(?<![A-Z]\d)\.(?:\s+[A-Z]|[A-Z](?=[a-z]))', aim_text)
+                if match:
+                    first_sentence = aim_text[:match.start() + 1].strip()
+                else:
+                    first_sentence = aim_text.strip()
+                    if not first_sentence.endswith('.'):
+                        first_sentence += '.'
+                first_sentence = self.convert_latex_to_markdown(first_sentence)
+            else:
+                first_sentence = ''
+
+            # Create link.md with icon, title, and first sentence
+            short_title = descriptor.get('short_title', full_title)
+            with open(web_dir / "link.md", 'w') as f:
+                f.write("---\n")
+                f.write("icon:\n")
+                f.write(f"  type: {icon_type}\n")
+                f.write(f"  color: {icon_color}\n")
+                f.write("---\n\n")
+                f.write(short_title)
+                if first_sentence:
+                    f.write("\n\n")
+                    f.write(first_sentence)
+
+            # Create weburl pointing to cluster note
+            cluster_path = self.module_to_cluster_path.get(module_code, "#")
+            with open(web_dir / "weburl", 'w') as f:
+                f.write(cluster_path)
+
+        print(f"Generated {len(all_modules)} module web links")
+
     def generate(self):
         """Main generation process"""
         print("=" * 60)
@@ -483,15 +596,17 @@ class MasterCatalogueGenerator:
         print("\nCleaning output directory...")
         self.clean_output()
 
-        # Generate cluster structure
+        # Generate structures (clusters first to build path mapping, then all-modules)
         self.generate_clusters()
+        self.generate_all_modules()
 
         print("\n" + "=" * 60)
         print("Generation complete!")
         print("=" * 60)
         print(f"\nOutput directory: {self.output_dir}")
+        print(f"- All Modules (alphabetical): {len(self.descriptors)}")
         print(f"- Clusters: {len(self.clusters)}")
-        print(f"- Modules: {len(self.descriptors)}")
+        print(f"- Total module notes: {len(self.descriptors)}")
 
 
 if __name__ == "__main__":

@@ -26,11 +26,11 @@ module-catalogue/
 
 ## Generated Output: tutors-modules-master
 
-A cluster-based Tutors course with:
-- **37 subject clusters** as topic directories
-- **636 module notes** with full descriptors
+A dual-view Tutors course with:
+- **All Modules view** - 636 modules alphabetically with web links
+- **Clusters view** - 37 subject clusters with 636 module notes
 - **636 PDF archives** attached to each module
-- Icon support (reuses 225 icons from computing catalogue)
+- **Icon support** - Reuses 225 icons from computing + 37 cluster icons
 
 ## Generation
 
@@ -93,15 +93,22 @@ requested_resources: [...]
 
 ```
 tutors-modules-master/
-├── properties.yaml           # Course metadata
-├── course.md                 # Course overview
-├── topic.md                  # Root topic
-└── topic-XX-{cluster}/       # Each cluster
-    ├── topic.md              # Cluster overview
-    └── note-XX-note-XX-{module}/
-        ├── note.md           # Full module descriptor
-        └── archives/
-            └── {code}.pdf    # Module PDF
+├── properties.yaml               # Course metadata
+├── course.md                     # Course overview
+├── topic.md                      # Root topic
+├── topic-01-all-modules/         # All modules alphabetically
+│   ├── topic.md
+│   └── web-XXX-web-XXX-{module}/ # 636 web objects
+│       ├── link.md               # Title + icon + summary
+│       └── weburl                # → cluster note
+└── topic-02-clusters/            # Modules by cluster
+    ├── topic.md
+    └── topic-XX-{cluster}/       # 37 clusters
+        ├── topic.md
+        └── note-XX-note-XX-{module}/
+            ├── note.md           # Full descriptor (master)
+            └── archives/
+                └── {code}.pdf    # Module PDF
 ```
 
 ## Statistics
@@ -112,23 +119,33 @@ tutors-modules-master/
 - **Schools**: 3 (Science and Computing, Engineering, Humanities)
 - **Departments**: 13
 
-## Module Icons
+## Icons
 
-Icons are reused from the computing catalogue where modules overlap (225 modules). Other modules use the default icon:
+### Module Icons
+
+Icons are applied using a 3-tier priority system:
+
+1. **Module-specific icons** - From computing catalogue (225 modules)
+2. **Cluster icons** - Inherited from cluster (411 modules)
+3. **Default icon** - `carbon:sys-provision` fallback
+
+### Cluster Icons
+
+All 37 clusters have custom icons defined in `tutors-generator/cluster-icons.yaml`:
 
 ```yaml
-icon:
-  type: carbon:sys-provision
-  color: 014771
+Biology:
+  type: mdi:dna
+  color: '00897B'
+  description: Biological sciences
+
+"Food Science":
+  type: mdi:food-apple-outline
+  color: 'EF5350'
+  description: Food technology and nutrition
 ```
 
-To customize icons, create `module-catalogue/module-icons.yaml`:
-
-```yaml
-A00914:
-  type: tabler:math
-  color: '007888'
-```
+See `tutors-generator/CLUSTER_ICONS.md` for complete icon documentation.
 
 ## Cluster Coverage
 
