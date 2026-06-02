@@ -37,7 +37,12 @@ A dual-view Tutors course with:
 ### Prerequisites
 
 ```bash
-pip install pyyaml
+pip install -r tutors-generator/requirements.txt
+```
+
+Or manually:
+```bash
+pip install pyyaml python-dotenv
 ```
 
 ### Generate the catalogue
@@ -53,6 +58,20 @@ This creates `tutors-modules-master/` with the complete cluster-based module cat
 ```bash
 cd tutors-modules-master
 deno run -A jsr:@tutors/tutors
+```
+
+## Configuration
+
+The generator uses environment variables from `.env`:
+
+```bash
+# Tutors course identifier used in weburl paths
+TUTORS_COURSE_ID=setu-sci-modules
+```
+
+This ID is used in all weburl paths:
+```
+/note/{TUTORS_COURSE_ID}/topic-02-clusters/topic-XX-{cluster}/note-YY-{module}
 ```
 
 ## Data Schema

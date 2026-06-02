@@ -29,6 +29,7 @@ class MasterCatalogueGenerator:
         self.descriptors = {}
         self.clusters = {}
         self.module_to_cluster_path = {}  # Maps module code to cluster note path
+        self.programmes = {}  # Maps programme code to programme info and modules
 
         # Load icon mappings from computing if available
         self.module_icons = {}
@@ -79,8 +80,48 @@ class MasterCatalogueGenerator:
                 self.clusters[cluster] = []
             self.clusters[cluster].append(code)
 
+        # Build programmes index from descriptors
+        self.extract_programmes()
+
         print(f"Loaded {len(self.descriptors)} modules")
         print(f"Found {len(self.clusters)} clusters")
+        print(f"Found {len(self.programmes)} programmes")
+
+    def extract_programmes(self):
+        """Extract programme information from module descriptors"""
+        from collections import defaultdict
+
+        programmes_data = {}  # prog_code -> {name, semesters}
+
+        for module_code, descriptor in self.descriptors.items():
+            if 'programmes' in descriptor and descriptor['programmes']:
+                for prog in descriptor['programmes']:
+                    if prog and 'code' in prog:
+                        prog_code = prog['code']
+                        prog_name = prog['name']
+                        semester = prog.get('semester', 0)
+                        status = prog.get('status', '')
+
+                        # Initialize programme if not seen
+                        if prog_code not in programmes_data:
+                            programmes_data[prog_code] = {
+                                'name': prog_name,
+                                'semesters': defaultdict(list)
+                            }
+
+                        # Add module to semester (only if semester is specified)
+                        if semester:
+                            programmes_data[prog_code]['semesters'][semester].append({
+                                'code': module_code,
+                                'status': status,
+                                'descriptor': descriptor
+                            })
+
+        # Filter out programmes with no semester data
+        self.programmes = {
+            code: data for code, data in programmes_data.items()
+            if data['semesters']
+        }
 
     def clean_output(self):
         """Clean the output directory"""
@@ -580,6 +621,122 @@ class MasterCatalogueGenerator:
 
         print(f"Generated {len(all_modules)} module web links")
 
+    def generate_programmes(self):
+        """Generate programmes view with semesters and web links to cluster notes"""
+        print("\nGenerating programmes view...")
+
+        # Create programmes container directory
+        programmes_container = self.output_dir / "topic-03-programmes"
+        programmes_container.mkdir(exist_ok=True)
+
+        # Create programmes topic.md with icon
+        with open(programmes_container / "topic.md", 'w') as f:
+            f.write("---\n")
+            f.write("icon:\n")
+            f.write("  type: mdi:school\n")
+            f.write("  color: 2E7D32\n")
+            f.write("---\n\n")
+            f.write("# Programmes\n\n")
+            f.write("Browse modules by programme and semester.\n")
+
+        # Sort programmes alphabetically by name
+        sorted_programmes = sorted(self.programmes.items(), key=lambda x: x[1]['name'])
+
+        for idx, (prog_code, prog_data) in enumerate(sorted_programmes):
+            prog_name = prog_data['name']
+            semesters = prog_data['semesters']
+
+            # Create programme directory
+            prog_dir = programmes_container / f"topic-{idx:02d}-{prog_code}"
+            prog_dir.mkdir(exist_ok=True)
+
+            # Create programme topic.md with default icon
+            with open(prog_dir / "topic.md", 'w') as f:
+                f.write("---\n")
+                f.write("icon:\n")
+                f.write("  type: mdi:book-education\n")
+                f.write("  color: 455A64\n")
+                f.write("---\n\n")
+                f.write(f"# {prog_name}\n\n")
+                f.write("TODO: Programme leader information\n")
+
+            # Create semester units
+            for semester_num in sorted(semesters.keys()):
+                semester_modules = semesters[semester_num]
+
+                # Create semester unit directory
+                unit_dir = prog_dir / f"unit-{semester_num}"
+                unit_dir.mkdir(exist_ok=True)
+
+                # Create semester topic.md
+                with open(unit_dir / "topic.md", 'w') as f:
+                    f.write(f"# Semester {semester_num}\n\n")
+                    f.write(f"{len(semester_modules)} modules\n")
+
+                # Create web objects for each module in semester
+                for mod_idx, module_info in enumerate(semester_modules, 1):
+                    module_code = module_info['code']
+                    descriptor = module_info['descriptor']
+                    status = module_info['status']
+
+                    # Get module details
+                    short_title = descriptor.get('short_title', descriptor.get('full_title', module_code))
+                    full_title = descriptor.get('full_title', module_code)
+                    module_name = self.sanitize_filename(full_title)
+
+                    # Create web object directory
+                    web_dir = unit_dir / f"web-{mod_idx:02d}-web-{mod_idx:02d}-{module_name}"
+                    web_dir.mkdir(exist_ok=True)
+
+                    # Get cluster for icon
+                    cluster_name = descriptor.get('cluster', 'Uncategorized')
+
+                    # Get icon (same priority as all-modules)
+                    icon_info = self.module_icons.get(module_code)
+                    if icon_info:
+                        icon_type = icon_info.get('type', 'carbon:sys-provision')
+                        icon_color = icon_info.get('color', '014771')
+                    elif cluster_name in self.cluster_icons:
+                        cluster_icon = self.cluster_icons[cluster_name]
+                        icon_type = cluster_icon.get('type', 'carbon:sys-provision')
+                        icon_color = cluster_icon.get('color', '014771')
+                    else:
+                        icon_type = 'carbon:sys-provision'
+                        icon_color = '014771'
+
+                    # Extract first sentence of aim
+                    aim_text = descriptor.get('aim', '')
+                    if aim_text:
+                        match = re.search(r'(?<![A-Z]\d)\.(?:\s+[A-Z]|[A-Z](?=[a-z]))', aim_text)
+                        if match:
+                            first_sentence = aim_text[:match.start() + 1].strip()
+                        else:
+                            first_sentence = aim_text.strip()
+                            if not first_sentence.endswith('.'):
+                                first_sentence += '.'
+                        first_sentence = self.convert_latex_to_markdown(first_sentence)
+                    else:
+                        first_sentence = ''
+
+                    # Create link.md with icon, title, and first sentence
+                    with open(web_dir / "link.md", 'w') as f:
+                        f.write("---\n")
+                        f.write("icon:\n")
+                        f.write(f"  type: {icon_type}\n")
+                        f.write(f"  color: {icon_color}\n")
+                        f.write("---\n\n")
+                        f.write(short_title)
+                        if first_sentence:
+                            f.write("\n\n")
+                            f.write(first_sentence)
+
+                    # Create weburl pointing to cluster note
+                    cluster_path = self.module_to_cluster_path.get(module_code, "#")
+                    with open(web_dir / "weburl", 'w') as f:
+                        f.write(cluster_path)
+
+        print(f"Generated {len(sorted_programmes)} programmes")
+
     def generate(self):
         """Main generation process"""
         print("=" * 60)
@@ -596,9 +753,10 @@ class MasterCatalogueGenerator:
         print("\nCleaning output directory...")
         self.clean_output()
 
-        # Generate structures (clusters first to build path mapping, then all-modules)
+        # Generate structures (clusters first to build path mapping, then others)
         self.generate_clusters()
         self.generate_all_modules()
+        self.generate_programmes()
 
         print("\n" + "=" * 60)
         print("Generation complete!")
@@ -606,6 +764,7 @@ class MasterCatalogueGenerator:
         print(f"\nOutput directory: {self.output_dir}")
         print(f"- All Modules (alphabetical): {len(self.descriptors)}")
         print(f"- Clusters: {len(self.clusters)}")
+        print(f"- Programmes: {len(self.programmes)}")
         print(f"- Total module notes: {len(self.descriptors)}")
 
 

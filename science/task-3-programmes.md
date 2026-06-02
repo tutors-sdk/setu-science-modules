@@ -1,0 +1,1 @@
+Create a new top level topic "programmes". This should have a topic for each programmes, inside each programme there should be a unit for each semester, and then web objects for each module in that semester. Follow the pattern in computing/tutors-catalogue/tutors/unit-1-progammes. Select appropriate icons for each programme and for the programmes topic
