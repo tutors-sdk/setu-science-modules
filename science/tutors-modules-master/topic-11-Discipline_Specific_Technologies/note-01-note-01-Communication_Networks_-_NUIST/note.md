@@ -1,7 +1,7 @@
 ---
 icon:
-  type: carbon:sys-provision
-  color: 014771
+  type: mdi:tools
+  color: 616161
 ---
 
 # Communication Networks (NUIST)

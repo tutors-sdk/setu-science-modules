@@ -1,7 +1,7 @@
 ---
 icon:
-  type: carbon:sys-provision
-  color: 014771
+  type: mdi:flash
+  color: FFA000
 ---
 
 # D.C. Circuit Theory

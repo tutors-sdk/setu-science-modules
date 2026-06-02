@@ -1,7 +1,7 @@
 ---
 icon:
-  type: carbon:sys-provision
-  color: 014771
+  type: mdi:alphabetical-variant
+  color: 8D6E63
 ---
 
 # EFL: Upper Intermediate 3

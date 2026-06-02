@@ -1,7 +1,7 @@
 ---
 icon:
-  type: carbon:sys-provision
-  color: 014771
+  type: mdi:swap-horizontal
+  color: 1976D2
 ---
 
 # Smart Grid Comms Technology

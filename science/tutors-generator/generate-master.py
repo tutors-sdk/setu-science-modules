@@ -26,6 +26,10 @@ class MasterCatalogueGenerator:
         self.module_icons = {}
         self.load_computing_icons()
 
+        # Load cluster icons
+        self.cluster_icons = {}
+        self.load_cluster_icons()
+
     def load_computing_icons(self):
         """Load icon mappings from computing catalogue for overlapping modules"""
         computing_icons = Path("../computing/module-catalogue/module-icons.yaml")
@@ -35,6 +39,16 @@ class MasterCatalogueGenerator:
             print(f"Loaded {len(self.module_icons)} icon mappings from computing catalogue")
         else:
             print("Computing icon mappings not found, will use defaults")
+
+    def load_cluster_icons(self):
+        """Load cluster icon mappings"""
+        cluster_icon_file = Path("cluster-icons.yaml")
+        if cluster_icon_file.exists():
+            with open(cluster_icon_file) as f:
+                self.cluster_icons = yaml.safe_load(f) or {}
+            print(f"Loaded {len(self.cluster_icons)} cluster icon mappings")
+        else:
+            print("Warning: cluster-icons.yaml not found, clusters will use default icons")
 
     def load_data(self):
         """Load all YAML descriptors from source directory"""
@@ -119,7 +133,7 @@ class MasterCatalogueGenerator:
 
         return text
 
-    def generate_module_markdown(self, module_code: str) -> str:
+    def generate_module_markdown(self, module_code: str, cluster_name: str = None) -> str:
         """Generate markdown content for a module from science schema"""
         descriptor = self.descriptors.get(module_code)
 
@@ -128,11 +142,18 @@ class MasterCatalogueGenerator:
 
         md = []
 
-        # Icon and title - use custom icon if available
+        # Icon selection priority:
+        # 1. Module-specific icon from computing catalogue
+        # 2. Cluster icon (if cluster_name provided)
+        # 3. Default icon
         icon_info = self.module_icons.get(module_code)
         if icon_info:
             icon_type = icon_info.get('type', 'carbon:sys-provision')
             icon_color = icon_info.get('color', '014771')
+        elif cluster_name and cluster_name in self.cluster_icons:
+            cluster_icon = self.cluster_icons[cluster_name]
+            icon_type = cluster_icon.get('type', 'carbon:sys-provision')
+            icon_color = cluster_icon.get('color', '014771')
         else:
             # Default icon
             icon_type = 'carbon:sys-provision'
@@ -387,8 +408,16 @@ class MasterCatalogueGenerator:
             cluster_dir = self.output_dir / f"topic-{idx:02d}-{cluster_dir_name}"
             cluster_dir.mkdir(exist_ok=True)
 
-            # Create cluster topic.md
+            # Create cluster topic.md with icon
             with open(cluster_dir / "topic.md", 'w') as f:
+                # Add icon frontmatter if cluster icon exists
+                if cluster_name in self.cluster_icons:
+                    cluster_icon = self.cluster_icons[cluster_name]
+                    f.write("---\n")
+                    f.write("icon:\n")
+                    f.write(f"  type: {cluster_icon.get('type', 'carbon:sys-provision')}\n")
+                    f.write(f"  color: {cluster_icon.get('color', '014771')}\n")
+                    f.write("---\n\n")
                 f.write(f"# {cluster_name}\n\n\n")
 
             # Sort modules in cluster alphabetically by module name
@@ -431,8 +460,8 @@ class MasterCatalogueGenerator:
                 if pdf_source.exists():
                     shutil.copy(pdf_source, archives_dir / f"{module_code}.pdf")
 
-                # Generate note.md
-                markdown = self.generate_module_markdown(module_code)
+                # Generate note.md (pass cluster_name for icon inheritance)
+                markdown = self.generate_module_markdown(module_code, cluster_name)
                 with open(note_dir / "note.md", 'w') as f:
                     f.write(markdown)
 

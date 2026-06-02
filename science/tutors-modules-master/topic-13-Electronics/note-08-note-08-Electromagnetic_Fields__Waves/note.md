@@ -1,7 +1,7 @@
 ---
 icon:
-  type: carbon:sys-provision
-  color: 014771
+  type: mdi:chip
+  color: F57C00
 ---
 
 # Electromagnetic Fields & Waves
