@@ -91,28 +91,32 @@ class MasterCatalogueGenerator:
         """Extract programme information from module descriptors (Science & Computing only)"""
         from collections import defaultdict, Counter
 
-        # First pass: determine primary school for each programme
+        # First pass: determine primary school and department for each programme
         prog_school_counts = defaultdict(Counter)  # prog_code -> {school: count}
+        prog_dept_counts = defaultdict(Counter)  # prog_code -> {department: count}
         prog_module_counts = defaultdict(int)  # prog_code -> total module count
 
         for module_code, descriptor in self.descriptors.items():
             school = descriptor.get('school', 'Unknown')
+            department = descriptor.get('department', 'Unknown')
             if 'programmes' in descriptor and descriptor['programmes']:
                 for prog in descriptor['programmes']:
                     if prog and 'code' in prog and prog.get('semester'):
                         prog_school_counts[prog['code']][school] += 1
+                        prog_dept_counts[prog['code']][department] += 1
                         prog_module_counts[prog['code']] += 1
 
         # Identify Science & Computing programmes (where it's the primary school AND has >= 3 modules)
-        science_computing_programmes = set()
+        science_computing_programmes = {}  # prog_code -> primary_department
         for prog_code, school_counts in prog_school_counts.items():
             primary_school = school_counts.most_common(1)[0][0]
             module_count = prog_module_counts[prog_code]
             if primary_school == 'Science and Computing' and module_count >= 3:
-                science_computing_programmes.add(prog_code)
+                primary_dept = prog_dept_counts[prog_code].most_common(1)[0][0]
+                science_computing_programmes[prog_code] = primary_dept
 
         # Second pass: extract only Science & Computing programmes
-        programmes_data = {}  # prog_code -> {name, semesters}
+        programmes_data = {}  # prog_code -> {name, semesters, department}
 
         for module_code, descriptor in self.descriptors.items():
             if 'programmes' in descriptor and descriptor['programmes']:
@@ -132,6 +136,7 @@ class MasterCatalogueGenerator:
                         if prog_code not in programmes_data:
                             programmes_data[prog_code] = {
                                 'name': prog_name,
+                                'department': science_computing_programmes[prog_code],
                                 'semesters': defaultdict(list)
                             }
 
@@ -665,15 +670,66 @@ class MasterCatalogueGenerator:
             f.write("# Programmes\n\n")
             f.write("Browse modules by programme and semester.\n")
 
+        # Group programmes by department
+        science_programmes = {}
+        computing_programmes = {}
+
+        for prog_code, prog_data in self.programmes.items():
+            dept = prog_data.get('department', 'Unknown')
+            if dept == 'Computing and Mathematics':
+                computing_programmes[prog_code] = prog_data
+            else:
+                # All other departments go into Science unit
+                science_programmes[prog_code] = prog_data
+
+        # Create Unit 1: Science Department Programmes
+        self._generate_programme_unit(
+            programmes_container,
+            unit_num=1,
+            unit_name="Science Department Programmes",
+            programmes=science_programmes,
+            icon_type="mdi:flask",
+            icon_color="00897B"
+        )
+
+        # Create Unit 2: Computing and Mathematics Department Programmes
+        self._generate_programme_unit(
+            programmes_container,
+            unit_num=2,
+            unit_name="Computing and Mathematics Department Programmes",
+            programmes=computing_programmes,
+            icon_type="mdi:laptop",
+            icon_color="1976D2"
+        )
+
+        total_progs = len(science_programmes) + len(computing_programmes)
+        print(f"Generated {total_progs} programmes ({len(science_programmes)} Science, {len(computing_programmes)} Computing & Maths)")
+
+    def _generate_programme_unit(self, container_dir, unit_num, unit_name, programmes, icon_type, icon_color):
+        """Helper method to generate a unit containing programmes"""
+        # Create unit directory
+        unit_dir = container_dir / f"unit-{unit_num}"
+        unit_dir.mkdir(exist_ok=True)
+
+        # Create unit topic.md
+        with open(unit_dir / "topic.md", 'w') as f:
+            f.write("---\n")
+            f.write("icon:\n")
+            f.write(f"  type: {icon_type}\n")
+            f.write(f"  color: {icon_color}\n")
+            f.write("---\n\n")
+            f.write(f"# {unit_name}\n\n")
+            f.write(f"{len(programmes)} programmes\n")
+
         # Sort programmes alphabetically by name
-        sorted_programmes = sorted(self.programmes.items(), key=lambda x: x[1]['name'])
+        sorted_programmes = sorted(programmes.items(), key=lambda x: x[1]['name'])
 
         for idx, (prog_code, prog_data) in enumerate(sorted_programmes):
             prog_name = prog_data['name']
             semesters = prog_data['semesters']
 
             # Create programme directory
-            prog_dir = programmes_container / f"topic-{idx:02d}-{prog_code}"
+            prog_dir = unit_dir / f"topic-{idx:02d}-{prog_code}"
             prog_dir.mkdir(exist_ok=True)
 
             # Create programme topic.md with default icon
@@ -691,11 +747,11 @@ class MasterCatalogueGenerator:
                 semester_modules = semesters[semester_num]
 
                 # Create semester unit directory
-                unit_dir = prog_dir / f"unit-{semester_num}"
-                unit_dir.mkdir(exist_ok=True)
+                semester_unit_dir = prog_dir / f"unit-{semester_num}"
+                semester_unit_dir.mkdir(exist_ok=True)
 
                 # Create semester topic.md
-                with open(unit_dir / "topic.md", 'w') as f:
+                with open(semester_unit_dir / "topic.md", 'w') as f:
                     f.write(f"# Semester {semester_num}\n\n")
                     f.write(f"{len(semester_modules)} modules\n")
 
@@ -711,7 +767,7 @@ class MasterCatalogueGenerator:
                     module_name = self.sanitize_filename(full_title)
 
                     # Create web object directory
-                    web_dir = unit_dir / f"web-{mod_idx:02d}-web-{mod_idx:02d}-{module_name}"
+                    web_dir = semester_unit_dir / f"web-{mod_idx:02d}-web-{mod_idx:02d}-{module_name}"
                     web_dir.mkdir(exist_ok=True)
 
                     # Get cluster for icon
@@ -760,8 +816,6 @@ class MasterCatalogueGenerator:
                     cluster_path = self.module_to_cluster_path.get(module_code, "#")
                     with open(web_dir / "weburl", 'w') as f:
                         f.write(cluster_path)
-
-        print(f"Generated {len(sorted_programmes)} programmes")
 
     def generate(self):
         """Main generation process"""
