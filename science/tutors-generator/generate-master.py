@@ -88,9 +88,30 @@ class MasterCatalogueGenerator:
         print(f"Found {len(self.programmes)} programmes")
 
     def extract_programmes(self):
-        """Extract programme information from module descriptors"""
-        from collections import defaultdict
+        """Extract programme information from module descriptors (Science & Computing only)"""
+        from collections import defaultdict, Counter
 
+        # First pass: determine primary school for each programme
+        prog_school_counts = defaultdict(Counter)  # prog_code -> {school: count}
+        prog_module_counts = defaultdict(int)  # prog_code -> total module count
+
+        for module_code, descriptor in self.descriptors.items():
+            school = descriptor.get('school', 'Unknown')
+            if 'programmes' in descriptor and descriptor['programmes']:
+                for prog in descriptor['programmes']:
+                    if prog and 'code' in prog and prog.get('semester'):
+                        prog_school_counts[prog['code']][school] += 1
+                        prog_module_counts[prog['code']] += 1
+
+        # Identify Science & Computing programmes (where it's the primary school AND has >= 3 modules)
+        science_computing_programmes = set()
+        for prog_code, school_counts in prog_school_counts.items():
+            primary_school = school_counts.most_common(1)[0][0]
+            module_count = prog_module_counts[prog_code]
+            if primary_school == 'Science and Computing' and module_count >= 3:
+                science_computing_programmes.add(prog_code)
+
+        # Second pass: extract only Science & Computing programmes
         programmes_data = {}  # prog_code -> {name, semesters}
 
         for module_code, descriptor in self.descriptors.items():
@@ -98,6 +119,11 @@ class MasterCatalogueGenerator:
                 for prog in descriptor['programmes']:
                     if prog and 'code' in prog:
                         prog_code = prog['code']
+
+                        # Skip programmes not in Science & Computing
+                        if prog_code not in science_computing_programmes:
+                            continue
+
                         prog_name = prog['name']
                         semester = prog.get('semester', 0)
                         status = prog.get('status', '')
