@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+cd "$(dirname "$0")/tutors-generator"
+python3 generate-by-dept.py
