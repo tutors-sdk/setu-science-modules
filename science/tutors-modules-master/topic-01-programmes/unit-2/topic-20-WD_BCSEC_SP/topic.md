@@ -1,7 +1,7 @@
 ---
 icon:
-  type: mdi:book-education
-  color: 455A64
+  type: mdi:security
+  color: B71C1C
 ---
 
 # Diploma in Computing with Security and Forensics

@@ -1,7 +1,7 @@
 ---
 icon:
-  type: mdi:book-education
-  color: 455A64
+  type: mdi:barley
+  color: 9E9D24
 ---
 
 # Bachelor of Science in Agricultural Science

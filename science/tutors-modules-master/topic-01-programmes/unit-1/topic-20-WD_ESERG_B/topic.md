@@ -1,7 +1,7 @@
 ---
 icon:
-  type: mdi:book-education
-  color: 455A64
+  type: mdi:solar-power
+  color: 689F38
 ---
 
 # Bachelor of Engineering (Honours) in Sustainable Energy Engineering

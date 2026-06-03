@@ -1,7 +1,7 @@
 ---
 icon:
-  type: mdi:book-education
-  color: 455A64
+  type: mdi:tractor-variant
+  color: 7CB342
 ---
 
 # HDip in Science in Agri-Food ICT Systems

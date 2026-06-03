@@ -1,7 +1,7 @@
 ---
 icon:
-  type: mdi:book-education
-  color: 455A64
+  type: mdi:cpu-64-bit
+  color: 004D40
 ---
 
 # Bachelor of Engineering (Honours) in Electronic Engineering

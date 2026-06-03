@@ -1,7 +1,7 @@
 ---
 icon:
-  type: mdi:book-education
-  color: 455A64
+  type: mdi:laptop-account
+  color: 1976D2
 ---
 
 # BSc (Hons) in Applied Computing (International)

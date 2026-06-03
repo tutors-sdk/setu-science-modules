@@ -1,7 +1,7 @@
 ---
 icon:
-  type: mdi:book-education
-  color: 455A64
+  type: mdi:database-search
+  color: 01579B
 ---
 
 # Certificate in Data Science

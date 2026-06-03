@@ -1,7 +1,7 @@
 ---
 icon:
-  type: mdi:book-education
-  color: 455A64
+  type: mdi:chip
+  color: 00897B
 ---
 
 # MEng in Electronic Information Systems

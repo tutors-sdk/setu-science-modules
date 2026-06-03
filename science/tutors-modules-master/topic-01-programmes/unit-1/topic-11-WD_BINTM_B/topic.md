@@ -1,7 +1,7 @@
 ---
 icon:
-  type: mdi:book-education
-  color: 455A64
+  type: mdi:currency-usd
+  color: 0097A7
 ---
 
 # Bachelor of Arts (Honours) in International Management

@@ -1,7 +1,7 @@
 ---
 icon:
-  type: mdi:book-education
-  color: 455A64
+  type: mdi:brain
+  color: E57373
 ---
 
 # Bachelor of Arts (Honours) in Psychology with Arts (International)

@@ -1,7 +1,7 @@
 ---
 icon:
-  type: mdi:book-education
-  color: 455A64
+  type: mdi:room-service
+  color: FFA726
 ---
 
 # Higher Certificate in Arts in (Hospitality Studies)

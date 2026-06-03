@@ -1,7 +1,7 @@
 ---
 icon:
-  type: mdi:book-education
-  color: 455A64
+  type: mdi:network
+  color: 0097A7
 ---
 
 # Bachelor of Science (Honours) in Information Technology

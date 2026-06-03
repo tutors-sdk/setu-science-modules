@@ -1,7 +1,7 @@
 ---
 icon:
-  type: mdi:book-education
-  color: 455A64
+  type: mdi:airplane
+  color: 0277BD
 ---
 
 # Bachelor of Arts (Honours) in Tourism Management

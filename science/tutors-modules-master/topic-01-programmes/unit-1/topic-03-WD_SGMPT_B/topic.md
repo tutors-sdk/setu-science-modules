@@ -1,7 +1,7 @@
 ---
 icon:
-  type: mdi:book-education
-  color: 455A64
+  type: mdi:beaker
+  color: EF5350
 ---
 
 # BSc (Hons) in Good Manufacturing Practice and Technology

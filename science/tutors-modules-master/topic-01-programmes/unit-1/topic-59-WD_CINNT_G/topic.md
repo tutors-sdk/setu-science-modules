@@ -1,7 +1,7 @@
 ---
 icon:
-  type: mdi:book-education
-  color: 455A64
+  type: mdi:cog-sync
+  color: 546E7A
 ---
 
 # Postgraduate Diploma in Science in Innovative Technology Engineering

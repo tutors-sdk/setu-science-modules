@@ -38,6 +38,7 @@ class MasterCatalogueGenerator:
         # Load cluster icons
         self.cluster_icons = {}
         self.load_cluster_icons()
+        self.load_programme_icons()
 
     def load_computing_icons(self):
         """Load icon mappings from computing catalogue for overlapping modules"""
@@ -60,6 +61,18 @@ class MasterCatalogueGenerator:
             print(f"Loaded {len(self.cluster_icons)} cluster icon mappings")
         else:
             print("Warning: cluster-icons.yaml not found, clusters will use default icons")
+
+    def load_programme_icons(self):
+        """Load programme icon mappings"""
+        script_dir = Path(__file__).parent
+        programme_icon_file = script_dir / "programme-icons.yaml"
+        if programme_icon_file.exists():
+            with open(programme_icon_file) as f:
+                self.programme_icons = yaml.safe_load(f) or {}
+            print(f"Loaded {len(self.programme_icons)} programme icon mappings")
+        else:
+            self.programme_icons = {}
+            print("Warning: programme-icons.yaml not found, programmes will use default icons")
 
     def load_data(self):
         """Load all YAML descriptors from source directory"""
@@ -732,12 +745,21 @@ class MasterCatalogueGenerator:
             prog_dir = unit_dir / f"topic-{idx:02d}-{prog_code}"
             prog_dir.mkdir(exist_ok=True)
 
-            # Create programme topic.md with default icon
+            # Create programme topic.md with icon
+            # Get icon from programme-icons.yaml or use default
+            icon_info = self.programme_icons.get(prog_code)
+            if icon_info:
+                icon_type = icon_info.get('type', 'mdi:book-education')
+                icon_color = icon_info.get('color', '455A64')
+            else:
+                icon_type = 'mdi:book-education'
+                icon_color = '455A64'
+
             with open(prog_dir / "topic.md", 'w') as f:
                 f.write("---\n")
                 f.write("icon:\n")
-                f.write("  type: mdi:book-education\n")
-                f.write("  color: 455A64\n")
+                f.write(f"  type: {icon_type}\n")
+                f.write(f"  color: {icon_color}\n")
                 f.write("---\n\n")
                 f.write(f"# {prog_name}\n\n")
                 f.write("TODO: Programme leader information\n")

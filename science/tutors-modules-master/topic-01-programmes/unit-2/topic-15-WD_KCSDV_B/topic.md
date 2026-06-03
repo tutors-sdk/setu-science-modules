@@ -1,7 +1,7 @@
 ---
 icon:
-  type: mdi:book-education
-  color: 455A64
+  type: mdi:xml
+  color: 7B1FA2
 ---
 
 # Bachelor of Science (Honours) in Software Systems Development

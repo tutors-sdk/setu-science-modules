@@ -1,7 +1,7 @@
 ---
 icon:
-  type: mdi:book-education
-  color: 455A64
+  type: mdi:chart-line
+  color: 1565C0
 ---
 
 # HDip in Science in Data Analytics

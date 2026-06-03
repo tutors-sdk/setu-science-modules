@@ -1,7 +1,7 @@
 ---
 icon:
-  type: mdi:book-education
-  color: 455A64
+  type: mdi:greenhouse
+  color: 8BC34A
 ---
 
 # Higher Diploma in Science in Agi-Food ICT Systems

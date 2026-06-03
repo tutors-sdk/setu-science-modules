@@ -1,7 +1,7 @@
 ---
 icon:
-  type: mdi:book-education
-  color: 455A64
+  type: mdi:account-group
+  color: 00897B
 ---
 
 # Bachelor of Arts (Honours) in Social Science

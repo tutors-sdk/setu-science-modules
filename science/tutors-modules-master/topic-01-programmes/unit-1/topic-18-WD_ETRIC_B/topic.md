@@ -1,7 +1,7 @@
 ---
 icon:
-  type: mdi:book-education
-  color: 455A64
+  type: mdi:engine
+  color: FF6F00
 ---
 
 # Bachelor of Engineering (Honours) in Electrical Engineering

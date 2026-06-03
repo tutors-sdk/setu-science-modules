@@ -1,7 +1,7 @@
 ---
 icon:
-  type: mdi:book-education
-  color: 455A64
+  type: mdi:lightning-bolt
+  color: FF8F00
 ---
 
 # Higher Certificate in Engineering in Electrical Engineering

@@ -1,7 +1,7 @@
 ---
 icon:
-  type: mdi:book-education
-  color: 455A64
+  type: mdi:chart-bar
+  color: 0D47A1
 ---
 
 # Certificate in Data Analytics

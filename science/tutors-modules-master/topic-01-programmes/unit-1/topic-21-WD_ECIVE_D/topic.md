@@ -1,7 +1,7 @@
 ---
 icon:
-  type: mdi:book-education
-  color: 455A64
+  type: mdi:bridge
+  color: 5D4037
 ---
 
 # Bachelor of Engineering in Civil Engineering

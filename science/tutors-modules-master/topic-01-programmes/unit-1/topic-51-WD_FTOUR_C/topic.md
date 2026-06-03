@@ -1,7 +1,7 @@
 ---
 icon:
-  type: mdi:book-education
-  color: 455A64
+  type: mdi:map
+  color: 039BE5
 ---
 
 # Higher Certificate in Business in (Tourism)

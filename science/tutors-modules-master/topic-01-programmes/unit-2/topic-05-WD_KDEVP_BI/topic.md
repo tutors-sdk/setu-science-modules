@@ -1,7 +1,7 @@
 ---
 icon:
-  type: mdi:book-education
-  color: 455A64
+  type: mdi:code-tags
+  color: 5E35B1
 ---
 
 # BSc (Hons) in Software Engineering

@@ -1,7 +1,7 @@
 ---
 icon:
-  type: mdi:book-education
-  color: 455A64
+  type: mdi:book-account
+  color: 7E57C2
 ---
 
 # Bachelor of Arts (Honours) International

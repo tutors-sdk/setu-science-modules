@@ -1,7 +1,7 @@
 ---
 icon:
-  type: mdi:book-education
-  color: 455A64
+  type: mdi:head-lightbulb
+  color: EF5350
 ---
 
 # Bachelor of Arts (Honours) in Psychology

@@ -1,7 +1,7 @@
 ---
 icon:
-  type: mdi:book-education
-  color: 455A64
+  type: mdi:chip
+  color: 00695C
 ---
 
 # Postgraduate Diploma in Engineering in Electronic Engineering

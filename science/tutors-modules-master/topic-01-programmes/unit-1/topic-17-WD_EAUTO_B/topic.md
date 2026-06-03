@@ -1,7 +1,7 @@
 ---
 icon:
-  type: mdi:book-education
-  color: 455A64
+  type: mdi:robot-industrial
+  color: E65100
 ---
 
 # Bachelor of Engineering (Honours) in Automation Engineering with Data Intelligence

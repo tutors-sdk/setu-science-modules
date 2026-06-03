@@ -1,7 +1,7 @@
 ---
 icon:
-  type: mdi:book-education
-  color: 455A64
+  type: mdi:console
+  color: 6A1B9A
 ---
 
 # Bachelor of Science (Honours) in Software Systems Practice

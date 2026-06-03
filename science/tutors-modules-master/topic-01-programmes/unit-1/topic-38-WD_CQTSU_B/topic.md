@@ -1,7 +1,7 @@
 ---
 icon:
-  type: mdi:book-education
-  color: 455A64
+  type: mdi:ruler-square
+  color: 8D6E63
 ---
 
 # Bachelor of Science (Honours) in Quantity Surveying

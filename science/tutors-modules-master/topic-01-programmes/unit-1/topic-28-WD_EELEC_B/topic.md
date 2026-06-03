@@ -1,7 +1,7 @@
 ---
 icon:
-  type: mdi:book-education
-  color: 455A64
+  type: mdi:chip
+  color: 00695C
 ---
 
 # Bachelor of Science (Honours) in Applied Electronics

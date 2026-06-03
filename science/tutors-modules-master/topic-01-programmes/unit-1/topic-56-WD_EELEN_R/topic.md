@@ -1,7 +1,7 @@
 ---
 icon:
-  type: mdi:book-education
-  color: 455A64
+  type: mdi:microchip
+  color: 00796B
 ---
 
 # Master of Engineering in Electronic Engineering

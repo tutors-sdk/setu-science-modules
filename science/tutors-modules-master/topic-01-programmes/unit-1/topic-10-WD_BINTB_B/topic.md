@@ -1,7 +1,7 @@
 ---
 icon:
-  type: mdi:book-education
-  color: 455A64
+  type: mdi:earth
+  color: 0288D1
 ---
 
 # Bachelor of Arts (Honours) in International Business

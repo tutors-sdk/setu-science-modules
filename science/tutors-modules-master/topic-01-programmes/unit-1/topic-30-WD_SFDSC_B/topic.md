@@ -1,7 +1,7 @@
 ---
 icon:
-  type: mdi:book-education
-  color: 455A64
+  type: mdi:food-variant
+  color: D32F2F
 ---
 
 # Bachelor of Science (Honours) in Food Science and Innovation
