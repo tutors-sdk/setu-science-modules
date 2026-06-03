@@ -380,12 +380,12 @@ class ByDeptCatalogueGenerator:
 
         print(f"  Department has {len(dept_descriptors)} modules, {len(dept_programmes)} programmes, {len(dept_clusters)} clusters")
 
-        # Generate the three topics
-        self._generate_programmes_topic(unit_dir, dept_programmes, dept_descriptors)
+        # Generate the three topics (clusters first to build path mapping)
         module_to_cluster_path = self._generate_clusters_topic(unit_dir, dept_clusters, dept_descriptors)
+        self._generate_programmes_topic(unit_dir, dept_programmes, dept_descriptors, module_to_cluster_path)
         self._generate_all_modules_topic(unit_dir, dept_descriptors, module_to_cluster_path)
 
-    def _generate_programmes_topic(self, unit_dir: Path, programmes: dict, descriptors: dict):
+    def _generate_programmes_topic(self, unit_dir: Path, programmes: dict, descriptors: dict, module_to_cluster_path: dict):
         """Generate programmes topic for a department"""
         programmes_dir = unit_dir / "topic-01-programmes"
         programmes_dir.mkdir(exist_ok=True)
@@ -502,10 +502,10 @@ class ByDeptCatalogueGenerator:
                             f.write("\n\n")
                             f.write(first_sentence)
 
-                    # Create weburl (will be updated after clusters are generated)
-                    # For now, create placeholder
+                    # Create weburl pointing to cluster note
+                    cluster_path = module_to_cluster_path.get(module_code, "#")
                     with open(web_dir / "weburl", 'w') as f:
-                        f.write("#")
+                        f.write(cluster_path)
 
         print(f"    Generated {len(programmes)} programmes")
 
