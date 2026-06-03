@@ -8,28 +8,45 @@ icon:
 
 This module covers an overview of pharmacology, with an emphasis on the relationship between chemical structure and biological activity of pharmaceuticals.
 
+<p><a href="./archives/A13321.pdf" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; text-decoration: none;"><img src="https://upload.wikimedia.org/wikipedia/commons/6/60/Adobe_Acrobat_Reader_icon_%282020%29.svg" width="20" height="20" style="margin-right: 4px;" alt="Adobe Acrobat Icon"><span>Module Descriptor (PDF)</span></a></p>
+
+## Module Information
+
+| **Field** | **Details** |
+|-----------|-------------|
+| **Module Code** | A13321 |
+| **Module Title** | Pharmacology, Drug Design and Synthesis |
+| **Short Title** | Pharmacol, Drug Design & Synth |
+| **Credits** | 5 ECTS |
+| **Level** | Advanced |
+| **School** | Science and Computing |
+| **Department** | Science |
+| **Module Author** | AHAYDEN |
+| **Cluster** | Pharmaceutical Science |
+
 ---
 
-## Module Details
+## Module Aim
 
-- **Credits:** 5
-- **Level:** Advanced
-- **Department:** Science
-- **Cluster:** Pharmaceutical Science
+This module covers an overview of pharmacology, with an emphasis on the relationship between chemical structure and biological activity of pharmaceuticals. The development and use of asymmetric synthetic methods for pharmaceuticals and the importance of heterocylic compounds as pharmaceuticals are included.
 
 ---
 
 ## Learning Outcomes
 
-- Evaluate the importance of, and factors controlling, the absorption, distribution, metabolism and elimination of drugs.
-- Evaluate and explain the role of receptor theory in pharmacodynamics and its relationship to modification of neurohumoral transmission.
-- Determine the structure activity relationships for selected classes of drugs.
-- Propose examples of synthetic routes for heterocyclic pharmaceuticals.
-- Predict and evaluate asymmetric pharmaceutical synthetic methods.
+On successful completion of this module, learners will be able to:
+
+1. Evaluate the importance of, and factors controlling, the absorption, distribution, metabolism and elimination of drugs.
+2. Evaluate and explain the role of receptor theory in pharmacodynamics and its relationship to modification of neurohumoral transmission.
+3. Determine the structure activity relationships for selected classes of drugs.
+4. Propose examples of synthetic routes for heterocyclic pharmaceuticals.
+5. Predict and evaluate asymmetric pharmaceutical synthetic methods.
 
 ---
 
 ## Indicative Content
+
+The module covers the following topics:
 
 - Pharmacokinetics: principles of drug absorption, distribution, metabolism and excretion
 - Relationship of ADME to routes of administration: first pass metabolism and role of blood brain barrier; bioequivalence of similar formulations
@@ -46,6 +63,79 @@ This module covers an overview of pharmacology, with an emphasis on the relation
 - Case study: development and role of Tamoxifen as a selective estrogen receptor modulator; role of estrogen synthesis inhibitors
 - Principles and classification of types of asymmetric synthesis of pharmaceuticals; single enantiomer and racemic drugs: role of eutomers and distomers
 - Role of chiral auxiliaries, asymmetric induction, mole ratio chiral reagents and chiral catalysts; examples of asymmetric synthesis of pharmaceuticals
+
+---
+
+## Learning and Teaching Methods
+
+Lectures.
+
+Seminars.
+
+Self-directed study.
+
+### Contact Hours
+
+| **Activity** | **Full Time Hours** | **Part Time Hours** |
+|--------------|---------------------|---------------------|
+| Lecture | 36 | 36 |
+| Independent Learning | 99 | 99 |
+| **Total** | **135** | **135** |
+
+---
+
+## Assessment Methods
+
+| **Assessment Type** | **Learning Outcomes** | **Weighting** |
+|---------------------|----------------------|---------------|
+| **Final Written Examination** | 1,2,3,4,5 | **100%** |
+
+---
+
+## Assessment Criteria
+
+<40%: No understanding of the basic principles of pharmacology, drug design and synthesis.
+
+40%-49%: Ability to understand the basic principles of pharmacology, drug design and synthesis. May have some difficulty with applying the theory.
+
+50%-59%: All the above, in addition to the ability to demonstrate an understanding of some of the complexities of the topics and predict some trends in analytical results.
+
+60%-69%: In addition, shows a high level of competence and efficiency in the area of pharmacology, drug design and synthesis and demonstrates an ability to evaluate detailed knowledge acquired in the module to new material.
+
+70%-100%: All previous to an excellent level. The learner will be able to demonstrate comprehensive knowledge and understanding of pharmacology, drug design and synthesis, predict general trends in behaviour, including exceptional behaviour and critically evaluate and relate topics that overlap all of the topics.
+
+---
+
+## Pre-requisites and Co-requisites
+
+- **Pre-requisites:** None
+- **Co-requisites:** None
+
+---
+
+## Recommended Reading
+
+### Supplementary Material
+
+
+---
+
+### Essential Material
+
+- Aitken, R.A. and S.N. Kilenyi. _Asymmetic Synthesis_. 2nd ed. London: Blackie Academic, 2000.
+- Brunton, L. and B. Chabner. _The Pharmacological Basis of Therapeutics._. 12th ed. New York: McGraw and Hill, 2001.
+- Krogsgaard, P. _Textbook of Drug Design and Discovery_. 3rd ed. London: Taylor & Francis, 2002.
+
+---
+
+## Programme Information
+
+This module is available on the following programmes:
+
+| **Programme Code** | **Programme Title** | **Stage** | **Semester** | **Status** |
+|-------------------|---------------------|-----------|--------------|------------|
+| WD_SPHSC_B | Bachelor of Science (Honours) in Pharmaceutical Science | 4 | 8 | Mandatory |
+| WD_SQMCH_B | Bachelor of Science (Honours) in Applied Chemistry with Quality Management | 4 | 2 | Mandatory |
 
 ---
 

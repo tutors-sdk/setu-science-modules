@@ -238,7 +238,10 @@ class ByDeptCatalogueGenerator:
 
         md = []
 
-        # Icon selection priority
+        # Icon selection priority:
+        # 1. Module-specific icon from computing catalogue
+        # 2. Cluster icon (if cluster_name provided)
+        # 3. Default icon
         icon_info = self.module_icons.get(module_code)
         if icon_info:
             icon_type = icon_info.get('type', 'carbon:sys-provision')
@@ -248,6 +251,7 @@ class ByDeptCatalogueGenerator:
             icon_type = cluster_icon.get('type', 'carbon:sys-provision')
             icon_color = cluster_icon.get('color', '014771')
         else:
+            # Default icon
             icon_type = 'carbon:sys-provision'
             icon_color = '014771'
 
@@ -260,9 +264,10 @@ class ByDeptCatalogueGenerator:
         md.append(f"# {descriptor.get('short_title', descriptor.get('full_title', module_code))}")
         md.append("")
 
-        # Aim - extract first sentence only
+        # Aim - extract first sentence only for the summary
         if 'aim' in descriptor:
             aim_text = descriptor['aim']
+            # Extract first sentence
             match = re.search(r'(?<![A-Z]\d)\.(?:\s+[A-Z]|[A-Z](?=[a-z]))', aim_text)
             if match:
                 first_sentence = aim_text[:match.start() + 1].strip()
@@ -270,29 +275,46 @@ class ByDeptCatalogueGenerator:
                 first_sentence = aim_text.strip()
                 if not first_sentence.endswith('.'):
                     first_sentence += '.'
-            first_sentence = self.convert_latex_to_markdown(first_sentence)
             md.append(first_sentence)
-            md.append("")
-            md.append("---")
-            md.append("")
-
-        # Module details
-        md.append("## Module Details")
         md.append("")
-        md.append(f"- **Credits:** {descriptor.get('credits', 'N/A')}")
-        md.append(f"- **Level:** {descriptor.get('level', 'N/A')}")
-        md.append(f"- **Department:** {descriptor.get('department', 'N/A')}")
-        md.append(f"- **Cluster:** {descriptor.get('cluster', 'N/A')}")
+        md.append(f'<p><a href="./archives/{module_code}.pdf" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; text-decoration: none;"><img src="https://upload.wikimedia.org/wikipedia/commons/6/60/Adobe_Acrobat_Reader_icon_%282020%29.svg" width="20" height="20" style="margin-right: 4px;" alt="Adobe Acrobat Icon"><span>Module Descriptor (PDF)</span></a></p>')
+        md.append("")
+
+        # Module information table
+        md.append("## Module Information")
+        md.append("")
+        md.append("| **Field** | **Details** |")
+        md.append("|-----------|-------------|")
+        md.append(f"| **Module Code** | {module_code} |")
+        md.append(f"| **Module Title** | {descriptor.get('full_title', 'N/A')} |")
+        md.append(f"| **Short Title** | {descriptor.get('short_title', 'N/A')} |")
+        md.append(f"| **Credits** | {descriptor.get('credits', 'N/A')} ECTS |")
+        md.append(f"| **Level** | {descriptor.get('level', 'N/A')} |")
+        md.append(f"| **School** | {descriptor.get('school', 'N/A')} |")
+        md.append(f"| **Department** | {descriptor.get('department', 'N/A')} |")
+        md.append(f"| **Module Author** | {descriptor.get('author', 'N/A')} |")
+        md.append(f"| **Cluster** | {descriptor.get('cluster', 'N/A')} |")
         md.append("")
         md.append("---")
         md.append("")
+
+        # Module aim
+        if 'aim' in descriptor:
+            md.append("## Module Aim")
+            md.append("")
+            md.append(self.convert_latex_to_markdown(descriptor['aim']))
+            md.append("")
+            md.append("---")
+            md.append("")
 
         # Learning outcomes
         if 'learning_outcomes' in descriptor:
             md.append("## Learning Outcomes")
             md.append("")
-            for outcome in descriptor['learning_outcomes']:
-                md.append(f"- {self.convert_latex_to_markdown(outcome)}")
+            md.append("On successful completion of this module, learners will be able to:")
+            md.append("")
+            for i, outcome in enumerate(descriptor['learning_outcomes'], 1):
+                md.append(f"{i}. {self.convert_latex_to_markdown(outcome)}")
             md.append("")
             md.append("---")
             md.append("")
@@ -301,18 +323,144 @@ class ByDeptCatalogueGenerator:
         if 'indicative_content' in descriptor:
             md.append("## Indicative Content")
             md.append("")
-            for content in descriptor['indicative_content']:
-                md.append(f"- {self.convert_latex_to_markdown(content)}")
+            md.append("The module covers the following topics:")
+            md.append("")
+            for topic in descriptor['indicative_content']:
+                md.append(f"- {self.convert_latex_to_markdown(topic)}")
             md.append("")
             md.append("---")
             md.append("")
 
-        # Assessment
-        if 'assessment' in descriptor:
-            md.append("## Assessment")
+        # Learning and teaching methods
+        if 'learning_and_teaching_methods' in descriptor:
+            md.append("## Learning and Teaching Methods")
             md.append("")
-            for assessment in descriptor['assessment']:
-                md.append(f"- {self.convert_latex_to_markdown(assessment)}")
+            for method in descriptor['learning_and_teaching_methods']:
+                md.append(self.convert_latex_to_markdown(method))
+                md.append("")
+
+            # Contact hours table
+            if 'learning_modes' in descriptor:
+                md.append("### Contact Hours")
+                md.append("")
+                md.append("| **Activity** | **Full Time Hours** | **Part Time Hours** |")
+                md.append("|--------------|---------------------|---------------------|")
+
+                total_ft = 0
+                total_pt = 0
+                for mode in descriptor['learning_modes']:
+                    ft = mode.get('full_time', 0)
+                    pt = mode.get('part_time', 0)
+                    # Handle cases where values might be strings or missing
+                    try:
+                        ft_val = int(ft) if ft else 0
+                    except (ValueError, TypeError):
+                        ft_val = 0
+                    try:
+                        pt_val = int(pt) if pt else 0
+                    except (ValueError, TypeError):
+                        pt_val = 0
+                    total_ft += ft_val
+                    total_pt += pt_val
+                    md.append(f"| {mode['name']} | {ft_val} | {pt_val} |")
+
+                md.append(f"| **Total** | **{total_ft}** | **{total_pt}** |")
+                md.append("")
+
+            md.append("---")
+            md.append("")
+
+        # Assessment methods
+        if 'assessment_methods' in descriptor:
+            md.append("## Assessment Methods")
+            md.append("")
+            md.append("| **Assessment Type** | **Learning Outcomes** | **Weighting** |")
+            md.append("|---------------------|----------------------|---------------|")
+
+            main_assessments = [a for a in descriptor['assessment_methods'] if a.get('main', False)]
+            sub_assessments = [a for a in descriptor['assessment_methods'] if not a.get('main', False)]
+
+            for assessment in main_assessments:
+                los = assessment.get('learning_outcomes', 'All')
+                weight = assessment.get('weighting', 0)
+                md.append(f"| **{assessment['name']}** | {los} | **{weight}%** |")
+
+            for assessment in sub_assessments:
+                los = assessment.get('learning_outcomes', '')
+                weight = assessment.get('weighting', 0)
+                md.append(f"| - {assessment['name']} | {los} | {weight}% |")
+
+            md.append("")
+            md.append("---")
+            md.append("")
+
+        # Assessment criteria
+        if 'assessment_criteria' in descriptor:
+            md.append("## Assessment Criteria")
+            md.append("")
+
+            for criterion in descriptor['assessment_criteria']:
+                criterion_text = self.convert_latex_to_markdown(criterion)
+                md.append(criterion_text)
+                md.append("")
+
+            md.append("---")
+            md.append("")
+
+        # Pre-requisites and co-requisites
+        prereqs = descriptor.get('prerequisites', [])
+        coreqs = descriptor.get('corequisites', [])
+
+        md.append("## Pre-requisites and Co-requisites")
+        md.append("")
+        md.append(f"- **Pre-requisites:** {', '.join(prereqs) if prereqs else 'None'}")
+        md.append(f"- **Co-requisites:** {', '.join(coreqs) if coreqs else 'None'}")
+        md.append("")
+        md.append("---")
+        md.append("")
+
+        # Recommended reading
+        if 'supplementary_material' in descriptor:
+            md.append("## Recommended Reading")
+            md.append("")
+            md.append("### Supplementary Material")
+            md.append("")
+            for material in descriptor['supplementary_material']:
+                md.append(f"- {self.convert_latex_to_markdown(material)}")
+            md.append("")
+            md.append("---")
+            md.append("")
+
+        if 'essential_material' in descriptor:
+            if 'supplementary_material' not in descriptor:
+                md.append("## Recommended Reading")
+                md.append("")
+            md.append("### Essential Material")
+            md.append("")
+            for material in descriptor['essential_material']:
+                md.append(f"- {self.convert_latex_to_markdown(material)}")
+            md.append("")
+            md.append("---")
+            md.append("")
+
+        # Programme information
+        if 'programmes' in descriptor and descriptor['programmes']:
+            md.append("## Programme Information")
+            md.append("")
+            md.append("This module is available on the following programmes:")
+            md.append("")
+            md.append("| **Programme Code** | **Programme Title** | **Stage** | **Semester** | **Status** |")
+            md.append("|-------------------|---------------------|-----------|--------------|------------|")
+
+            for prog_info in descriptor['programmes']:
+                if prog_info:  # Skip None entries
+                    prog_code = prog_info.get('code', '')
+                    prog_title = prog_info.get('name', '')
+                    stage = prog_info.get('stage', '')
+                    semester = prog_info.get('semester', '')
+                    status = 'Mandatory' if prog_info.get('status') == 'M' else 'Elective'
+                    md.append(f"| {prog_code} | {prog_title} | {stage} | {semester} | {status} |")
+
             md.append("")
             md.append("---")
             md.append("")
@@ -565,16 +713,34 @@ class ByDeptCatalogueGenerator:
                 note_dir = cluster_dir / note_dir_name
                 note_dir.mkdir(exist_ok=True)
 
+                # Store the path for this module
+                cluster_path = f"/note/{self.tutors_course_id}/{unit_dir.name}/topic-02-clusters/topic-{idx:02d}-{cluster_dir_name}/{note_dir_name}"
+                module_to_cluster_path[module_code] = cluster_path
+
+                # Create archives directory
+                archives_dir = note_dir / "archives"
+                archives_dir.mkdir(exist_ok=True)
+
+                # Copy PDF if exists
+                pdf_source = self.source_dir / "descriptors" / "pdf" / f"{descriptor.get('reference', module_code)}.pdf"
+                # Try alternate naming pattern
+                if not pdf_source.exists():
+                    # Try with full filename from directory
+                    yaml_file = self.source_dir / "descriptors" / "yaml" / f"{descriptor.get('reference', module_code)}.yaml"
+                    pdf_name = yaml_file.stem.replace('.yaml', '.pdf')
+                    for pdf_file in (self.source_dir / "descriptors" / "pdf").glob(f"{module_code}*.pdf"):
+                        pdf_source = pdf_file
+                        break
+
+                if pdf_source.exists():
+                    shutil.copy(pdf_source, archives_dir / f"{module_code}.pdf")
+
                 # Generate module markdown
                 markdown_content = self.generate_module_markdown(module_code, cluster_name)
 
                 # Write note.md
                 with open(note_dir / "note.md", 'w') as f:
                     f.write(markdown_content)
-
-                # Store the path for this module
-                cluster_path = f"/note/{self.tutors_course_id}/{unit_dir.name}/topic-02-clusters/topic-{idx:02d}-{cluster_dir_name}/{note_dir_name}"
-                module_to_cluster_path[module_code] = cluster_path
 
         print(f"    Generated {len(clusters)} clusters with {len(module_to_cluster_path)} modules")
         return module_to_cluster_path
